@@ -12,14 +12,24 @@ class Handler implements URLHandler {
     public String handleRequest(URI url) {
         if (url.getPath().equals("/")) {
             for(int i=0;i<words.size();i++){
-                returned+= "/n"+ words.get(i);
+                returned+= "\n"+ words.get(i);
             }
-            return String.format();    
+            return String.format(returned);    
+        }
         System.out.println("Path: " + url.getPath());
             if (url.getPath().contains("/add-message")) {
                 String[] parameters = url.getQuery().split("=");
-                    words.add(parameters[0]);
-                    return String.format("The word has been added.");
+                    words.add(parameters[1]);
+                    returned = "";
+                    if(words.size()<2){
+                        returned+=words.get(0);
+                    }
+                    else{
+                        for(int i=0;i<words.size();i++){
+                            returned+= "\n"+ words.get(i);
+                        }
+                    }
+                    return String.format(returned);
                 }
             return "404 Not Found!";
         
